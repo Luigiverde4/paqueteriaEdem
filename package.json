@@ -1,0 +1,16 @@
+{
+  "name": "paqueteria-edem",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Digitalización y trazabilidad de la gestión de paquetería de EDEM",
+  "scripts": {
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "devDependencies": {
+    "prettier": "3.10.1"
+  },
+  "engines": {
+    "node": ">=24"
+  }
+}
