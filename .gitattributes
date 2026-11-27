@@ -1,0 +1,9 @@
+# Saltos de línea LF en el repo para todos, da igual el sistema operativo.
+* text=auto eol=lf
+
+*.pdf binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.ico binary
+*.woff2 binary
