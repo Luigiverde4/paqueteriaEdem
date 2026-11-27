@@ -71,7 +71,6 @@ Requisitos: Node 24+, Docker y `make`.
 git clone https://github.com/Luigiverde4/paqueteriaEdem.git
 cd paqueteriaEdem
 make install   # instala las dependencias (incluida la versión fija de Prettier)
-make help      # lista todos los comandos disponibles
 ```
 
 <!-- TODO: completar cuando exista el código (variables de entorno, `make up`, migraciones de Prisma, puertos) -->
@@ -91,7 +90,7 @@ make help      # lista todos los comandos disponibles
 
 > `up`, `down`, `logs`, `dev`, `db-migrate` y `db-studio` dependen de que exista el `compose.yml` y los scripts del backend. Cuando se creen, hay que comprobar que siguen funcionando.
 
-Si en Windows no tienes `make`, ejecútalo desde Git Bash o instálalo con `winget install ezwinports.make`.
+Si en Windows no tienes `make`, instálalo con `winget install ezwinports.make`. Los comandos del `Makefile` no usan herramientas de Unix (`grep`, `awk`...), así que funcionan también en PowerShell y `cmd`. Al añadir comandos nuevos, mantén esa regla.
 
 ## Formato del código (Prettier)
 
