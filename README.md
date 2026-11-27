@@ -130,7 +130,7 @@ git pull
 - Trabajar siempre en ramas propias, nunca directamente sobre `main` (está protegida).
 - Nombre de rama: `tipo/descripcion-corta`, por ejemplo `feat/registro-recepcion` o `fix/etiqueta-duplicada`.
 - Mergear a `main` mediante Pull Request.
-- Cada PR debe ser revisada y aprobada como mínimo por un compañero. Nadie aprueba su propia PR.
+- Cada PR se pide a revisión a un compañero como mínimo y se espera su aprobación antes de mergear. Nadie aprueba su propia PR (GitHub no lo permite).
 - Las conversaciones abiertas de la revisión se resuelven antes de mergear.
 - Se mergea con **Squash and merge**: cada PR queda como un único commit en `main`, así que **el título de la PR debe seguir el formato de commits**.
 - Abre la PR como _Draft_ mientras trabajas y pásala a _Ready for review_ cuando esté lista.
@@ -139,6 +139,16 @@ git pull
 **Pull Requests**
 
 Al crear una PR se rellena automáticamente la plantilla de [`.github/PULL_REQUEST_TEMPLATE.md`](.github/PULL_REQUEST_TEMPLATE.md): qué cambia, por qué, cómo probarlo y un checklist. No la borres: rellénala, que es lo que permite a tu compañero revisar sin tener que preguntarte. Mantén las PRs pequeñas (una idea por PR) para que se puedan revisar de verdad.
+
+**Regla de equipo sobre las revisiones**
+
+El ruleset de `main` permite a los tres miembros del equipo saltarse la aprobación obligatoria (_bypass_) para que nadie se quede bloqueado. Es un **acuerdo entre nosotros, no una forma habitual de trabajar**:
+
+- Pide siempre la revisión y espera a tu compañero. El bypass sirve para desbloquear, no para evitar revisiones.
+- Úsalo solo si nadie puede revisar a tiempo y el cambio es pequeño o urgente (una errata, documentación, un ajuste de formato).
+- Los cambios grandes, o que toquen el esquema de la BBDD, la autenticación o los secretos, se revisan siempre.
+- El bypass también se salta el check `Formato (Prettier)`: no mergees hasta que esté en verde.
+- Si lo usas, deja un comentario en la PR explicando por qué.
 
 **Commits**
 
@@ -184,7 +194,7 @@ En _Settings → Rules → Rulesets_ (o _Branches → Branch protection rules_) 
 - Require conversation resolution before merging
 - Require status checks to pass: `Formato (Prettier)`
 - Block force pushes y restringir el borrado de la rama
-- Incluir también a los administradores (sin bypass), para que la regla se aplique a todo el equipo
+- Bypass list: el rol **Write** con el modo _For pull requests only_. Así cualquiera del equipo puede desbloquear una PR (ver la regla de equipo de arriba), pero nadie puede hacer push directo a `main`, forzarlo ni borrarlo. No uses _Always_.
 
 En _Settings → General → Pull Requests_: permitir solo **Squash merging** y activar _Automatically delete head branches_.
 
