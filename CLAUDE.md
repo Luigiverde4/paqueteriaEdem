@@ -76,7 +76,8 @@ Si una API no tiene soporte amplio, **comprueba su compatibilidad** (MDN / caniu
 
 ## Git y Pull Requests
 
-- Nunca trabajes en `main`: crea una rama `tipo/descripcion-corta` (`feat/registro-recepcion`).
+- Trabaja en una rama `tipo/descripcion-corta` (`feat/registro-recepcion`), no en `main`. **Excepción temporal:** durante la fase de infraestructura base el equipo trabaja directamente en `main` (ver «Flujo de ramas» en el README).
+- Las PRs se mergean con merge commit, así que cada commit de la rama llega a `main` y debe seguir el formato.
 - Commits con el formato `tipo(ámbito): descripción`, usando solo estos tipos: `feat`, `fix`, `docs`, `refactor`, `style`, `chore`, `build`, `ci`, `test`. Descripción en español, en minúscula, en imperativo y sin punto final. La tabla completa y los ámbitos están en el README.
 - Antes de proponer una PR, ejecuta `make format-check`.
 - Las PRs usan la plantilla de `.github/PULL_REQUEST_TEMPLATE.md` y necesitan al menos una revisión de un compañero.

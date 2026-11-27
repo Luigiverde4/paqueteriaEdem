@@ -88,7 +88,7 @@ make install   # instala las dependencias (incluida la versión fija de Prettier
 | `make db-migrate`   | Aplica las migraciones de Prisma                  |
 | `make db-studio`    | Abre Prisma Studio                                |
 
-> `up`, `down`, `logs`, `dev`, `db-migrate` y `db-studio` dependen de que exista el `compose.yml` y los scripts del backend. Cuando se creen, hay que comprobar que siguen funcionando.
+> Aún no funcionan: `up`, `down` y `logs` necesitan el `compose.yml`, y `dev`, `db-migrate` y `db-studio` ejecutan los scripts `dev`, `db:migrate` y `db:studio` de `server/package.json`, que todavía no existe. Cuando se cree, hay que añadir `npm ci --prefix server` a `make install`.
 
 Si en Windows no tienes `make`, instálalo con `winget install ezwinports.make`. Los comandos del `Makefile` no usan herramientas de Unix (`grep`, `awk`...), así que funcionan también en PowerShell y `cmd`. Al añadir comandos nuevos, mantén esa regla.
 
@@ -115,7 +115,24 @@ Reglas:
 
 ## Estructura del proyecto
 
-<!-- TODO: completar cuando exista el código -->
+```text
+paqueteriaEdem/
+├── client/              # Frontend: HTML, CSS y JS nativo (lo sirve Express)
+│   ├── assets/
+│   ├── css/
+│   ├── js/
+│   └── index.html
+├── server/              # Backend: API con Express y Prisma
+│   ├── prisma/
+│   ├── src/
+│   │   ├── controllers/
+│   │   ├── middlewares/
+│   │   └── routes/
+│   └── tests/
+├── docs/                # Enunciado y documentación
+├── Makefile
+└── .env.example
+```
 
 ## Metodología de trabajo
 
@@ -127,12 +144,14 @@ git pull
 
 **Flujo de ramas**
 
-- Trabajar siempre en ramas propias, nunca directamente sobre `main` (está protegida).
+- Trabajar siempre en ramas propias, nunca directamente sobre `main`.
+- **Excepción temporal:** mientras montamos la infraestructura base (estructura de carpetas, Docker, esqueleto del servidor) se trabaja directamente en `main`. Al terminar esa fase, todo pasa por PR.
 - Nombre de rama: `tipo/descripcion-corta`, por ejemplo `feat/registro-recepcion` o `fix/etiqueta-duplicada`.
 - Mergear a `main` mediante Pull Request.
 - Cada PR se pide a revisión a un compañero como mínimo y se espera su aprobación antes de mergear. Nadie aprueba su propia PR (GitHub no lo permite).
 - Las conversaciones abiertas de la revisión se resuelven antes de mergear.
-- Se mergea con **Squash and merge**: cada PR queda como un único commit en `main`, así que **el título de la PR debe seguir el formato de commits**.
+- Se mergea con **Create a merge commit**: en `main` queda un commit de merge con el título de la PR y, dentro, los commits de la rama. Por eso **tanto el título de la PR como cada commit de la rama deben seguir el formato de commits**. Antes de abrir la PR, limpia los commits tipo `wip` o `arreglos` (por ejemplo, con `git rebase -i`).
+- _Squash and merge_ queda disponible para las ramas cuyos commits no merezca la pena conservar.
 - Abre la PR como _Draft_ mientras trabajas y pásala a _Ready for review_ cuando esté lista.
 - Borra la rama después de mergear.
 
@@ -194,9 +213,17 @@ En _Settings → Rules → Rulesets_ (o _Branches → Branch protection rules_) 
 - Require conversation resolution before merging
 - Require status checks to pass: `Formato (Prettier)`
 - Block force pushes y restringir el borrado de la rama
-- Bypass list: el rol **Write** con el modo _For pull requests only_. Así cualquiera del equipo puede desbloquear una PR (ver la regla de equipo de arriba), pero nadie puede hacer push directo a `main`, forzarlo ni borrarlo. No uses _Always_.
+- Allowed merge methods: **Merge** y **Squash**
+- Bypass list: el rol **Write**.
+  - **Ahora**, en modo _Always_, porque durante la fase de infraestructura base trabajamos directamente en `main`.
+  - **Al terminar esa fase**, en modo _For pull requests only_. Así cualquiera del equipo puede desbloquear una PR (ver la regla de equipo de arriba), pero nadie puede hacer push directo a `main`, forzarlo ni borrarlo.
 
-En _Settings → General → Pull Requests_: permitir solo **Squash merging** y activar _Automatically delete head branches_.
+En _Settings → General → Pull Requests_:
+
+- Permitir **merge commits**, con _Default commit message_ en **Pull request title**.
+- Permitir **squash merging**.
+- Desactivar **rebase merging**.
+- Activar _Automatically delete head branches_.
 
 ## Organización del proyecto
 
