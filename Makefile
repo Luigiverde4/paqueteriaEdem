@@ -18,11 +18,11 @@ down: ## Para y elimina los contenedores
 logs: ## Sigue los logs de los contenedores
 	docker compose logs -f
 
-dev: ## Arranca el backend en modo desarrollo
-	npm run dev
+dev: ## Arranca el servidor en modo desarrollo
+	npm --prefix server run dev
 
 db-migrate: ## Aplica las migraciones de Prisma
-	npx prisma migrate dev
+	npm --prefix server run db:migrate
 
 db-studio: ## Abre Prisma Studio
-	npx prisma studio
+	npm --prefix server run db:studio
