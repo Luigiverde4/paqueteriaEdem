@@ -1,4 +1,4 @@
-.DEFAULT_GOAL := help
+.PHONY: install format format-check up down logs dev db-migrate db-studio
 
 install: ## Instala las dependencias (incluida la versión fija de Prettier)
 	npm ci

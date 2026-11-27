@@ -14,6 +14,7 @@ Aplicación para digitalizar y dar trazabilidad a la gestión de paquetería de 
 - **No inventes comandos, rutas ni scripts.** Comprueba el `Makefile`, el `package.json` y el `compose.yml` antes de recomendarlos. Algunos comandos del `Makefile` dependen de ficheros que aún no existen (se indica en el propio fichero).
 - **Si hay varias opciones, da una recomendación**, no un listado de alternativas.
 - **Cambios pequeños y enfocados.** No refactorices ni cambies el formato de código que no tiene relación con la tarea.
+- **Multiplataforma.** El equipo trabaja en Windows (PowerShell, `cmd` y Git Bash), macOS y Linux. En el `Makefile` y en los scripts no uses `grep`, `awk`, `sed`, `cat`, `rm`, `export` ni sintaxis de shell Unix, y no añadas comandos sofisticados al `Makefile`: que sean simples llamadas a `npm`, `npx` o `docker compose`. Verifica los comandos nuevos en PowerShell, no solo en Git Bash.
 
 ## Idioma
 
